@@ -17,3 +17,8 @@ linter:
     always_put_control_body_on_new_line: false
     unnecessary_final: false
     always_specify_types: false
+    one_member_abstracts: false
+    always_use_package_imports: false
+    require_trailing_commas: false
+    no_leading_underscores_for_local_identifiers: false
+    curly_braces_in_flow_control_structures: false
