@@ -16,7 +16,7 @@ class CashflowUseCase {
   final CashflowConvertorRepository _cashflowConvertorRepository;
 
   AsyncCashflowResult getCashflow() async {
-    final rawData = await _cashflowDataRespository.getCashflowDescription();
+    final rawData = await _cashflowDataRespository.getCashflow();
 
     return rawData.when(
       success: (rawData) {
