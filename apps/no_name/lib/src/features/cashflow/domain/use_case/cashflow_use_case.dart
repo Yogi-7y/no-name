@@ -1,19 +1,19 @@
 import '../../../../core/result.dart';
 import '../entity/cashflow_entry.dart';
-import '../repository/cashflow_convertor_repository.dart';
-import '../repository/cashflow_data_repository.dart';
+import '../repository/cashflow_transform_repository.dart';
+import '../repository/cashflow_source_repository.dart';
 
 typedef AsyncCashflowResult = AsyncResult<List<CashflowEntry>>;
 
 class CashflowUseCase {
   const CashflowUseCase({
-    required CashflowDataRespository cashflowDataRespository,
-    required CashflowConvertorRepository cashflowConvertorRepository,
+    required CashflowSourceRespository cashflowDataRespository,
+    required CashflowTransformRepository cashflowConvertorRepository,
   })  : _cashflowDataRespository = cashflowDataRespository,
         _cashflowConvertorRepository = cashflowConvertorRepository;
 
-  final CashflowDataRespository _cashflowDataRespository;
-  final CashflowConvertorRepository _cashflowConvertorRepository;
+  final CashflowSourceRespository _cashflowDataRespository;
+  final CashflowTransformRepository _cashflowConvertorRepository;
 
   AsyncCashflowResult getCashflow() async {
     final rawData = await _cashflowDataRespository.getCashflow();
