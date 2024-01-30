@@ -8,10 +8,22 @@ class SmsCashflowRepository implements CashflowSourceRespository {
     required this.smsService,
   });
 
+  static const _bankSenderIds = ['HDFCBK'];
+
   final SmsService smsService;
 
   @override
-  AsyncResult<List<RawCashflowData>> getCashflow() {
-    throw UnsupportedError('');
+  AsyncResult<List<RawCashflowData>> getCashflow({
+    required DateTime fromDateTime,
+    required DateTime toDateTime,
+  }) async {
+    final _sms = await smsService.getSmsList(
+      senderIds: _bankSenderIds,
+    );
+
+    return _sms.map((value) => value.map(RawCashflowData.fromSms).toList());
   }
+
+  @override
+  bool get requireInternetConnection => false;
 }

@@ -7,11 +7,13 @@ class CashflowEntry {
     required this.name,
     required this.amount,
     required this.dateTime,
+    this.isBackedUp = false,
   });
 
   final String name;
-  final num amount;
+  final double amount;
   final DateTime dateTime;
+  final bool isBackedUp;
 
   @override
   String toString() =>

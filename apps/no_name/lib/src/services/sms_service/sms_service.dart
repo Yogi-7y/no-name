@@ -1,4 +1,7 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../core/result.dart';
+import 'services/telephony_sms_service.dart';
 import 'sms_model.dart';
 
 abstract class SmsService {
@@ -18,3 +21,5 @@ abstract class SmsService {
 
   Future<bool> requestPermission();
 }
+
+final smsServiceProvider = Provider<SmsService>((ref) => TelephonySmsService());

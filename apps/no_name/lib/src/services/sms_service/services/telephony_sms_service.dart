@@ -70,8 +70,7 @@ extension SmsMessageExtension on SmsMessage {
     final _body = body ?? '';
     final _date = date;
 
-    if (_address.isEmpty || _body.isEmpty || _date == null)
-      throw Exception('Invalid SmsMessage');
+    if (_address.isEmpty || _body.isEmpty || _date == null) throw Exception('Invalid SmsMessage');
 
     return SmsModel(
       senderId: _address,

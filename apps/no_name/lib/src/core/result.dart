@@ -30,6 +30,18 @@ sealed class Result<S> {
 
     throw Exception('Invalid Result type ${result.runtimeType}');
   }
+
+  Result<T> map<T>(T Function(S value) f) {
+    final result = this;
+
+    if (result is Success<S>) {
+      return Success<T>(value: f(result.value as S));
+    } else if (result is Failure<S>) {
+      return Failure<T>(message: result.message);
+    }
+    // This should be unreachable if Success and Failure are the only subclasses of Result
+    throw Exception('Unexpected subclass of Result: ${result.runtimeType}');
+  }
 }
 
 @immutable

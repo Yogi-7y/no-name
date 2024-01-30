@@ -15,12 +15,10 @@ class DioApiClient implements ApiClient {
   }
 
   @override
-  ApiResponse call<T>(Request request) async {
-    if (request is GetRequest)
-      return Success(value: await _handleGetRequest(request));
+  ApiResponse call(Request request) async {
+    if (request is GetRequest) return Success(value: await _handleGetRequest(request));
 
-    if (request is PostRequest)
-      return Success(value: await _handlePostRequest(request));
+    if (request is PostRequest) return Success(value: await _handlePostRequest(request));
 
     throw UnsupportedError('Unsupported request type ${request.runtimeType}');
   }
@@ -38,6 +36,7 @@ class DioApiClient implements ApiClient {
     final _response = await _dio.postUri<Map<String, Object?>?>(
       request.uri(),
       data: request.body,
+      options: Options(headers: request.headers),
     );
     return _response.data ?? {};
   }
