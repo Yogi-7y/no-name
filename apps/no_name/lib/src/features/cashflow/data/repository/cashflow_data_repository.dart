@@ -8,7 +8,7 @@ class SmsCashflowRepository implements CashflowSourceRespository {
     required this.smsService,
   });
 
-  static const _bankSenderIds = ['HDFCBK'];
+  static const _bankSenderIds = ['HDFCBK', 'ICICIT'];
 
   final SmsService smsService;
 
@@ -17,11 +17,15 @@ class SmsCashflowRepository implements CashflowSourceRespository {
     required DateTime fromDateTime,
     required DateTime toDateTime,
   }) async {
-    final _sms = await smsService.getSmsList(
-      senderIds: _bankSenderIds,
-    );
+    try {
+      final _sms = await smsService.getSmsList(
+        senderIds: _bankSenderIds,
+      );
 
-    return _sms.map((value) => value.map(RawCashflowData.fromSms).toList());
+      return _sms.map((value) => value.map(RawCashflowData.fromSms).toList());
+    } catch (e) {
+      rethrow;
+    }
   }
 
   @override

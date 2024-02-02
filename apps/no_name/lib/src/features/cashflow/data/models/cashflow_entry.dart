@@ -6,12 +6,18 @@ import '../../domain/entity/cashflow_entry.dart';
 
 @immutable
 class CashflowEntryModel extends CashflowEntry {
-  const CashflowEntryModel({required super.name, required super.amount, required super.dateTime});
+  const CashflowEntryModel({
+    required super.name,
+    required super.amount,
+    required super.dateTime,
+    required super.type,
+  });
 
   factory CashflowEntryModel.fromMap(Map<String, Object?> map) {
     return CashflowEntryModel(
       name: map['merchant_name'] as String,
       amount: map['amount'] as double,
+      type: map['type'] == 'credit' ? CashflowType.credit : CashflowType.debit,
       dateTime: DateTime.fromMillisecondsSinceEpoch(map['date'] as int),
     );
   }

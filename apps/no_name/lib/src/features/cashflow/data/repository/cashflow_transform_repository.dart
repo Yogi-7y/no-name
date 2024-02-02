@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:dio/dio.dart';
-
 import '../../../../core/result.dart';
 import '../../../../services/local_state/local_state_service.dart';
 import '../../../../services/network/api_client.dart';

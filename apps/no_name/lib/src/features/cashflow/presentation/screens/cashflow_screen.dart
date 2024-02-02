@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../services/local_state/local_state_service.dart';
+import '../../domain/entity/raw_cashflow_data.dart';
+import '../../domain/repository/cashflow_transform_repository.dart';
 import '../../domain/use_case/cashflow_use_case.dart';
 
 class CashflowScreen extends ConsumerStatefulWidget {

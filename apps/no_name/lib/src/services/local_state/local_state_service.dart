@@ -11,6 +11,13 @@ abstract class LocalStateService {
   });
 
   Future<String?> readString(String key);
+
+  Future<void> writeMap({
+    required String key,
+    required Map<String, Object?> value,
+  });
+
+  Future<Map<String, Object?>> readMap(String key);
 }
 
 final localStateProvider = Provider<LocalStateService>((ref) => SharedPreferenceService());
