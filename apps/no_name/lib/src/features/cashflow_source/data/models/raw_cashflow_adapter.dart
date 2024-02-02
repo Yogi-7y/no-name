@@ -1,12 +1,10 @@
-import 'package:dio/dio.dart';
 import 'package:isar/isar.dart';
 
 import '../../domain/entity/raw_cashflow_data.dart';
 
-part 'raw_cashflow_data.g.dart';
+part 'raw_cashflow_adapter.g.dart';
 
-@Collection()
-@Name('RawCashflow')
+@Collection(accessor: 'rawCashflow')
 class RawCashflowAdapter extends RawCashflowData {
   const RawCashflowAdapter({
     required super.content,

@@ -1,11 +1,10 @@
 import 'package:isar/isar.dart';
 
 import '../../../../core/result.dart';
+import '../../../cashflow_source/data/models/raw_cashflow_adapter.dart';
+import '../../../cashflow_source/domain/entity/raw_cashflow_data.dart';
 import '../../domain/entity/persistence_state.dart';
-import '../../domain/entity/raw_cashflow_data.dart';
 import '../../domain/repository/cashflow_persistence_repository.dart';
-import '../../domain/repository/cashflow_source_repository.dart';
-import '../models/raw_cashflow_data.dart';
 
 class IsarCashflowPersistenceRepository implements CashflowPersistenceRepository {
   const IsarCashflowPersistenceRepository({required this.isar});
@@ -19,7 +18,7 @@ class IsarCashflowPersistenceRepository implements CashflowPersistenceRepository
 
     // ignore: unused_local_variable
     final _result = await isar.writeTxn(() {
-      return isar.rawCashflowAdapters.putAll(_transformedData);
+      return isar.rawCashflow.putAll(_transformedData);
     });
 
     return const Success();
@@ -27,7 +26,7 @@ class IsarCashflowPersistenceRepository implements CashflowPersistenceRepository
 
   @override
   AsyncResult<List<RawCashflowData>> getBackedUpCashflow() async {
-    final _backedUpCashflow = await isar.rawCashflowAdapters
+    final _backedUpCashflow = await isar.rawCashflow
         .filter()
         .stateContains(
           RawCashflowDataState.backedUp.name,
@@ -40,7 +39,7 @@ class IsarCashflowPersistenceRepository implements CashflowPersistenceRepository
 
   @override
   AsyncResult<List<RawCashflowData>> getNotBackedUpCashflow() async {
-    final _notBackedUpCashflow = await isar.rawCashflowAdapters
+    final _notBackedUpCashflow = await isar.rawCashflow
         .filter()
         .stateContains(
           RawCashflowDataState.notBackedUp.name,

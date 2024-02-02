@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/result.dart';
 import '../../../../services/sms_service/sms_service.dart';
-import '../../data/repository/cashflow_data_repository.dart';
+import '../../data/repository/sms/sms_source.dart';
 import '../entity/raw_cashflow_data.dart';
 
 @immutable
@@ -18,5 +18,5 @@ abstract class CashflowSourceRespository {
 }
 
 final cashflowSourceRepositoryProvider = Provider<CashflowSourceRespository>(
-  (ref) => SmsCashflowRepository(smsService: ref.watch(smsServiceProvider)),
+  (ref) => SmsSourceRepository(smsService: ref.watch(smsServiceProvider)),
 );

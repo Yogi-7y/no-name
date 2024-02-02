@@ -3,9 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/result.dart';
 import '../../../../services/isar_service.dart';
+import '../../../cashflow_source/domain/entity/raw_cashflow_data.dart';
 import '../../data/repository/cashflow_persistence_repository.dart';
 import '../entity/persistence_state.dart';
-import '../entity/raw_cashflow_data.dart';
 
 /// Responsible to store the raw cashflow data to the local database \
 /// and other persistence related tasks related to cashflow.

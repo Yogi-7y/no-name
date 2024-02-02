@@ -1,10 +1,10 @@
-import '../../../../core/result.dart';
-import '../../../../services/sms_service/sms_service.dart';
-import '../../domain/entity/raw_cashflow_data.dart';
-import '../../domain/repository/cashflow_source_repository.dart';
+import '../../../../../core/result.dart';
+import '../../../../../services/sms_service/sms_service.dart';
+import '../../../domain/entity/raw_cashflow_data.dart';
+import '../../../domain/repository/cashflow_source_repository.dart';
 
-class SmsCashflowRepository implements CashflowSourceRespository {
-  const SmsCashflowRepository({
+class SmsSourceRepository implements CashflowSourceRespository {
+  const SmsSourceRepository({
     required this.smsService,
   });
 
@@ -23,6 +23,7 @@ class SmsCashflowRepository implements CashflowSourceRespository {
       );
 
       return _sms.map((value) => value.map(RawCashflowData.fromSms).toList());
+      // ignore: avoid_catches_without_on_clauses
     } catch (e) {
       rethrow;
     }

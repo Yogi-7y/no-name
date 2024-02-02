@@ -4,7 +4,7 @@ import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'src/app.dart';
 import 'src/features/cashflow/data/models/cashflow_isar_adapter.dart';
-import 'src/features/cashflow/data/models/raw_cashflow_data.dart';
+import 'src/features/cashflow_source/domain/entity/raw_cashflow_data.dart';
 import 'src/services/isar_service.dart';
 import 'src/services/local_state/local_state_service.dart';
 import 'src/services/network/api_client.dart';
@@ -14,9 +14,7 @@ Future<void> main() async {
 
   final _directory = await getApplicationCacheDirectory();
   final _isar = await Isar.open(
-    [
-      RawCashflowAdapterSchema,
-    ],
+    [],
     directory: _directory.path,
   );
 

@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 
 @immutable
-class CashflowEntry {
-  const CashflowEntry({
+class Cashflow {
+  const Cashflow({
     required this.name,
     required this.amount,
     required this.type,
@@ -19,7 +19,7 @@ class CashflowEntry {
   String toString() => 'CashflowEntry(name: $name, amount: $amount, dateTime: $dateTime)';
 
   @override
-  bool operator ==(covariant CashflowEntry other) {
+  bool operator ==(covariant Cashflow other) {
     if (identical(this, other)) return true;
 
     return other.name == name && other.amount == amount && other.dateTime == dateTime;

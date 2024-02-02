@@ -2,10 +2,10 @@
 
 import 'package:flutter/material.dart';
 
-import '../../domain/entity/cashflow_entry.dart';
+import '../../domain/entity/cashflow.dart';
 
 @immutable
-class CashflowEntryModel extends CashflowEntry {
+class CashflowEntryModel extends Cashflow {
   const CashflowEntryModel({
     required super.name,
     required super.amount,

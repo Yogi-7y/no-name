@@ -5,14 +5,14 @@ import '../../../../core/extensions/iterable_extension.dart';
 import '../../../../core/resources/Strings.dart';
 import '../../../../core/result.dart';
 import '../../../../services/internet_service/internet_service.dart';
-import '../entity/cashflow_entry.dart';
-import '../entity/raw_cashflow_data.dart';
+import '../../../cashflow_publisher/domain/repository/cashflow_publisher_repository.dart';
+import '../../../cashflow_source/domain/entity/raw_cashflow_data.dart';
+import '../../../cashflow_source/domain/repository/cashflow_source_repository.dart';
+import '../entity/cashflow.dart';
 import '../repository/cashflow_persistence_repository.dart';
-import '../repository/cashflow_publisher_repository.dart';
-import '../repository/cashflow_source_repository.dart';
 import '../repository/cashflow_transform_repository.dart';
 
-typedef AsyncCashflowResult = AsyncResult<List<CashflowEntry>>;
+typedef AsyncCashflowResult = AsyncResult<List<Cashflow>>;
 
 class CashflowUseCase {
   const CashflowUseCase({
@@ -71,7 +71,7 @@ class CashflowUseCase {
         ],
       );
 
-  Future<List<CashflowEntry>> convertRawToCashflow(List<RawCashflowData> rawData) async {
+  Future<List<Cashflow>> convertRawToCashflow(List<RawCashflowData> rawData) async {
     final _result = await rawData.asyncMapIndexed(
       (index, element) async {
         final _transformed = await _transformer.transformToCashflowEntry(rawData: element);

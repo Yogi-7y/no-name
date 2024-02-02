@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../services/local_state/local_state_service.dart';
-import '../../domain/entity/raw_cashflow_data.dart';
-import '../../domain/repository/cashflow_transform_repository.dart';
 import '../../domain/use_case/cashflow_use_case.dart';
 
 class CashflowScreen extends ConsumerStatefulWidget {
@@ -26,8 +24,6 @@ class _CashflowScreenState extends ConsumerState<CashflowScreen> {
           FloatingActionButton(
             onPressed: () async {
               final _key = await ref.read(localStateProvider).readString('openai_api_key');
-
-              print(_key);
             },
             child: const Text('SMS'),
           ),
