@@ -27,9 +27,9 @@ class GptTransformer implements TransformerRepository {
   }) async {
     if (config is! GptConfig) return const Failure(message: 'Invalid config');
 
-    final key = await config.getOpenAiKey();
+    final key = config.openAiApiKey;
 
-    if (key == null) return const Failure(message: 'No API key found');
+    if (key.isEmpty) return const Failure(message: 'No API key found');
 
     final _request = GptChatCompletionRequest(
       openAiKey: key,

@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/extensions/iterable_extension.dart';
-import '../../../../core/resources/Strings.dart';
+import '../../../../core/resources/strings.dart';
 import '../../../../core/result.dart';
 import '../../../../services/internet_service/internet_service.dart';
 import '../../../cashflow_publisher/domain/repository/cashflow_publisher_repository.dart';

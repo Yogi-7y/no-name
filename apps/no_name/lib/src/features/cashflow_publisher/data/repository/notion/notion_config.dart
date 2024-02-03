@@ -1,19 +1,26 @@
-import '../../../../../core/config.dart';
 import '../../../domain/entity/publisher_config.dart';
+
+const _secretKeyName = 'notion_secret';
+const _cashflowDatabaseIdKey = 'notion_cashflow_database_id';
 
 class NotionConfig extends PublisherConfig {
   NotionConfig({
-    required super.localStateService,
+    required this.secretKey,
+    required this.cashflowDatabaseId,
     super.publisherName = 'notion',
   });
 
-  @override
-  Future<ConfigData> getConfig() {
-    throw UnimplementedError();
-  }
+  final String secretKey;
+  final String cashflowDatabaseId;
 
   @override
-  ConfigData onStoreConfig() {
-    throw UnimplementedError();
-  }
+  Map<String, Object?> onToMap() => {
+        _secretKeyName: secretKey,
+        _cashflowDatabaseIdKey: cashflowDatabaseId,
+      };
+
+  factory NotionConfig.fromMap(Map<String, dynamic> map) => NotionConfig(
+        secretKey: map[_secretKeyName] as String? ?? '',
+        cashflowDatabaseId: map[_cashflowDatabaseIdKey] as String? ?? '',
+      );
 }
