@@ -1,5 +1,7 @@
 import '../../../domain/entity/transformer_config.dart';
 
+const _openAiApiKeyName = 'openAiApiKey';
+
 class GptConfig extends TransformerConfig {
   GptConfig({
     required this.openAiApiKey,
@@ -10,6 +12,10 @@ class GptConfig extends TransformerConfig {
 
   @override
   Map<String, Object?> onToMap() => {
-        'openAiApiKey': openAiApiKey,
+        _openAiApiKeyName: openAiApiKey,
       };
+
+  factory GptConfig.fromMap(Map<String, dynamic> map) => GptConfig(
+        openAiApiKey: map[_openAiApiKeyName] as String? ?? '',
+      );
 }

@@ -24,7 +24,11 @@ class _CashflowScreenState extends ConsumerState<DashboardScreen> {
             ListTile(
               title: const Text('Publisher'),
               onTap: () => context.goNamed(AppRoutes.publisher.name),
-            )
+            ),
+            ListTile(
+              title: const Text('Transformer'),
+              onTap: () => context.goNamed(AppRoutes.transformer.name),
+            ),
           ],
         ),
       ),
