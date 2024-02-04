@@ -3,7 +3,6 @@ import 'dart:convert';
 import '../../../../../core/result.dart';
 import '../../../../../services/local_state/local_state_service.dart';
 import '../../../../../services/network/api_client.dart';
-import '../../../../cashflow/data/models/cashflow_entry.dart';
 import '../../../../cashflow/domain/entity/cashflow.dart';
 import '../../../../cashflow_source/domain/entity/raw_cashflow_data.dart';
 import '../../../domain/entity/transformer_config.dart';
@@ -49,7 +48,8 @@ class GptTransformer implements TransformerRepository {
 
       final json = jsonDecode(stringifiedContent) as Map<String, Object?>;
 
-      return CashflowEntryModel.fromMap(json);
+      // return CashflowEntryModel.fromMap(json);
+      throw UnsupportedError('');
     });
   }
 

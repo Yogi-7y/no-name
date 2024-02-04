@@ -7,7 +7,6 @@ import '../../../cashflow_source/domain/entity/raw_cashflow_data.dart';
 import '../../../cashflow_transformer/data/repository/gpt/gpt_transformer_request.dart';
 import '../../domain/entity/cashflow.dart';
 import '../../domain/repository/cashflow_transform_repository.dart';
-import '../models/cashflow_entry.dart';
 
 class GptTransformCashflowRepository implements CashflowTransformRepository {
   const GptTransformCashflowRepository({
@@ -41,8 +40,9 @@ class GptTransformCashflowRepository implements CashflowTransformRepository {
       final stringifiedContent = message['content'] as String? ?? '';
 
       final json = jsonDecode(stringifiedContent) as Map<String, Object?>;
+      throw UnsupportedError('');
 
-      return CashflowEntryModel.fromMap(json);
+      // return CashflowEntryModel.fromMap(json);
     });
   }
 }
