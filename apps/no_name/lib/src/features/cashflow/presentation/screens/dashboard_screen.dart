@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
-import '../../../../core/routes/app_router.dart';
+import '../../../cashflow_source/presentation/captured_cashflow.dart';
+import '../widgets/app_navigation_drawer.dart';
 
 class DashboardScreen extends ConsumerStatefulWidget {
   const DashboardScreen({super.key});
@@ -11,30 +11,58 @@ class DashboardScreen extends ConsumerStatefulWidget {
   ConsumerState<DashboardScreen> createState() => _CashflowScreenState();
 }
 
-class _CashflowScreenState extends ConsumerState<DashboardScreen> {
+class _CashflowScreenState extends ConsumerState<DashboardScreen>
+    with SingleTickerProviderStateMixin {
+  late final _tabBarController = TabController(length: 2, vsync: this);
+  late final _pageController = PageController(initialPage: _tabBarController.index);
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {});
+  }
+
+  @override
+  void dispose() {
+    _tabBarController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cashflow'),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            ListTile(
-              title: const Text('Publisher'),
-              onTap: () => context.goNamed(AppRoutes.publisher.name),
-            ),
-            ListTile(
-              title: const Text('Transformer'),
-              onTap: () => context.goNamed(AppRoutes.transformer.name),
-            ),
+        bottom: TabBar(
+          controller: _tabBarController,
+          tabs: const [
+            Tab(text: 'Captured'),
+            Tab(text: 'Processed'),
           ],
         ),
       ),
-      body: const Center(
-        child: Text('Cashflow'),
+      drawer: const AppNavigationDrawer(),
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (value) {
+          _tabBarController.animateTo(value);
+        },
+        children: [
+          CapturedCashflow(),
+          ProcessedCashflow(),
+        ],
       ),
     );
+  }
+}
+
+class ProcessedCashflow extends StatelessWidget {
+  const ProcessedCashflow({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const Text('Processed');
   }
 }

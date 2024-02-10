@@ -1,16 +1,19 @@
 import '../../../../../core/result.dart';
+import '../../../../../services/local_state/local_state_service.dart';
 import '../../../../../services/sms_service/sms_service.dart';
 import '../../../domain/entity/raw_cashflow_data.dart';
 import '../../../domain/repository/cashflow_source_repository.dart';
 
-class SmsSourceRepository implements CashflowSourceRespository {
+class SmsSourceRepository implements CashflowSource {
   const SmsSourceRepository({
     required this.smsService,
+    required this.localStateService,
   });
 
   static const _bankSenderIds = ['HDFCBK', 'ICICIT'];
 
   final SmsService smsService;
+  final LocalStateService localStateService;
 
   @override
   AsyncResult<List<RawCashflowData>> getCashflow({
@@ -31,4 +34,24 @@ class SmsSourceRepository implements CashflowSourceRespository {
 
   @override
   bool get requireInternetConnection => false;
+
+  @override
+  AsyncResult<DateTime> getLastLocalStoreCashflowDateTime() {
+    throw UnimplementedError();
+  }
+
+  @override
+  AsyncResult<List<RawCashflowData>> getLocalStoredCashflow() {
+    throw UnimplementedError();
+  }
+
+  @override
+  AsyncResult<void> storeCashflow({required List<RawCashflowData> cashflow}) {
+    throw UnimplementedError();
+  }
+
+  @override
+  AsyncResult<void> writeLocalCashflowDataTime({required DateTime dateTime}) {
+    throw UnimplementedError();
+  }
 }

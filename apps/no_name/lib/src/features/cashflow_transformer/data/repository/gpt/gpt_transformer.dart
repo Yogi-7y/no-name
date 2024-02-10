@@ -7,6 +7,7 @@ import '../../../../cashflow/domain/entity/cashflow.dart';
 import '../../../../cashflow_source/domain/entity/raw_cashflow_data.dart';
 import '../../../domain/entity/transformer_config.dart';
 import '../../../domain/repository/transformer_repository.dart';
+import '../../models/cashflow_yaml_parser.dart';
 import 'gpt_config.dart';
 import 'gpt_transformer_request.dart';
 
@@ -44,12 +45,9 @@ class GptTransformer implements TransformerRepository {
 
       final message = firstChoice['message'] as Map<String, Object?>? ?? {};
 
-      final stringifiedContent = message['content'] as String? ?? '';
+      final content = message['content'] as String? ?? '';
 
-      final json = jsonDecode(stringifiedContent) as Map<String, Object?>;
-
-      // return CashflowEntryModel.fromMap(json);
-      throw UnsupportedError('');
+      return CashflowYamlParser.fromYaml(content);
     });
   }
 
@@ -64,10 +62,9 @@ class GptTransformer implements TransformerRepository {
   String generatePrompt(String data) {
     final prompt = '''
   Input: $data
-  Desired Format: Json object with amount, date (in milliseconds), and merchant_name keys & value.
+  Desired Format: Yaml format with amount, date (in milliseconds), type(credit/debit) and merchant_name. null if missing.
 
-  Json:
-
+  YAML:
 ''';
 
     return prompt;
