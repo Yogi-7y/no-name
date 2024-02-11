@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/app_exception.dart';
+import '../../../core/extensions/date_time_extension.dart';
 import 'providers/cashflow_source_provider.dart';
 
 class CapturedCashflow extends ConsumerWidget {
@@ -19,7 +20,7 @@ class CapturedCashflow extends ConsumerWidget {
               final _cashflow = source[index];
 
               return ListTile(
-                title: Text(_cashflow.formattedDateTime),
+                title: Text(_cashflow.dateTime.formattedDate),
                 subtitle: Text(_cashflow.content),
               );
             },

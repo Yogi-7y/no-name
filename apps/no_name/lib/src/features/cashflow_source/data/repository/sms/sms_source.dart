@@ -10,7 +10,11 @@ class SmsSource implements CashflowSource {
     required this.localStateService,
   });
 
-  static const _bankSenderIds = ['HDFCBK', 'ICICIT'];
+  static const _bankSenderIds = [
+    'HDFCBK',
+    'ICICIT',
+    'FEDBNK',
+  ];
 
   final SmsService smsService;
   final LocalStateService localStateService;
