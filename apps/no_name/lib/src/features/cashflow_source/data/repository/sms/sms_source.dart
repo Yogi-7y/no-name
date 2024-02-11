@@ -4,8 +4,8 @@ import '../../../../../services/sms_service/sms_service.dart';
 import '../../../domain/entity/raw_cashflow_data.dart';
 import '../../../domain/repository/cashflow_source_repository.dart';
 
-class SmsSourceRepository implements CashflowSource {
-  const SmsSourceRepository({
+class SmsSource implements CashflowSource {
+  const SmsSource({
     required this.smsService,
     required this.localStateService,
   });
@@ -23,6 +23,8 @@ class SmsSourceRepository implements CashflowSource {
     try {
       final _sms = await smsService.getSmsList(
         senderIds: _bankSenderIds,
+        startTimeInMilliseconds: fromDateTime.millisecondsSinceEpoch,
+        endTimeInMilliseconds: toDateTime.millisecondsSinceEpoch,
       );
 
       return _sms.map((value) => value.map(RawCashflowData.fromSms).toList());
@@ -34,24 +36,4 @@ class SmsSourceRepository implements CashflowSource {
 
   @override
   bool get requireInternetConnection => false;
-
-  @override
-  AsyncResult<DateTime> getLastLocalStoreCashflowDateTime() {
-    throw UnimplementedError();
-  }
-
-  @override
-  AsyncResult<List<RawCashflowData>> getLocalStoredCashflow() {
-    throw UnimplementedError();
-  }
-
-  @override
-  AsyncResult<void> storeCashflow({required List<RawCashflowData> cashflow}) {
-    throw UnimplementedError();
-  }
-
-  @override
-  AsyncResult<void> writeLocalCashflowDataTime({required DateTime dateTime}) {
-    throw UnimplementedError();
-  }
 }

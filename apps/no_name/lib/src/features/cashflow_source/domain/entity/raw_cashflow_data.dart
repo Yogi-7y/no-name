@@ -31,4 +31,9 @@ class RawCashflowData {
         content: sms.message,
         dateTime: sms.dateTime,
       );
+
+  String get formattedDateTime =>
+      '${dateTime.day}/${dateTime.month}/${dateTime.year}, ${dateTime.hour}:${dateTime.minute}';
+
+  String get dateTimeInMilliseconds => dateTime.millisecondsSinceEpoch.toString();
 }

@@ -6,8 +6,6 @@ import 'package:no_name/src/features/cashflow_source/data/repository/cashflow_so
 import 'package:no_name/src/features/cashflow_source/domain/repository/cashflow_source_repository.dart';
 import 'package:no_name/src/services/internet_service/internet_service.dart';
 
-import '../../../cashflow/domain/use_case/cashflow_use_case_test.dart';
-
 /// Flow:
 /// 1. User opens the app and does not have internet.
 /// 2. sms source is the selected source which does not require internet.

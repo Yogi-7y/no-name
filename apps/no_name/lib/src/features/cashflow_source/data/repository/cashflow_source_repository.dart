@@ -1,4 +1,4 @@
-import 'package:flutter/rendering.dart';
+// ignore_for_file: avoid_catches_without_on_clauses
 
 import '../../../../core/extensions/date_time_extension.dart';
 import '../../../../core/result.dart';
@@ -20,7 +20,7 @@ class CashflowSourceRepositoryImpl implements CashflowRepository {
   @override
   AsyncResult<List<RawCashflowData>> getCashflow() async {
     try {
-      final _hasConnection = await internetService.hasConnection();
+      // final _hasConnection = await internetService.hasConnection();
       final _sourceRequireInternetConnection = cashflowSource.requireInternetConnection;
 
       if (!_sourceRequireInternetConnection) {
@@ -30,19 +30,25 @@ class CashflowSourceRepositoryImpl implements CashflowRepository {
 
         final _cashflow = await cashflowSource.getCashflow(
           fromDateTime: _fromTime,
-          toDateTime: DateTime.now(),
+          toDateTime: DateTime.now().add(const Duration(days: 1)).date,
         );
 
         await cashflowLocalSource.storeCashflow(cashflow: _cashflow.valueOrNull ?? []);
 
         await cashflowLocalSource.writeLocalCashflowDataTime(dateTime: DateTime.now());
 
-        return const Success(value: []);
+        final _localCashflow = await cashflowLocalSource.getCashflow();
+
+        return Success(value: _localCashflow.valueOrNull ?? []);
       }
 
       throw UnimplementedError();
-    } catch (e) {
-      rethrow;
+    } catch (error, stackTrace) {
+      return Failure(
+        message: 'Failed to fetch cashflow data. Please try again.',
+        exception: error,
+        stackTrace: stackTrace,
+      );
     }
   }
 }

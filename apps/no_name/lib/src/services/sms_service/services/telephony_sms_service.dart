@@ -22,35 +22,27 @@ class TelephonySmsService implements SmsService {
       SmsColumn.DATE,
     ];
 
-    final _filter = senderIds.isEmpty
-        ? null
-        : createFilter(
-            senderIds,
-            SmsFilter.where(SmsColumn.ADDRESS),
-          );
+    SmsFilterStatement filterBase() => SmsFilter.where(SmsColumn.DATE)
+        .greaterThanOrEqualTo(startTimeInMilliseconds.toString())
+        .and(SmsColumn.DATE)
+        .lessThanOrEqualTo(endTimeInMilliseconds.toString())
+        .and(SmsColumn.ADDRESS);
 
-    final _sms = await _instance.getInboxSms(
-      columns: _columns,
-      filter: _filter,
-      sortOrder: [OrderBy(SmsColumn.DATE)],
-    );
+    final _sms = <SmsMessage>[];
+
+    for (var i = 0; i < senderIds.length; i++) {
+      final _messages = await _instance.getInboxSms(
+        columns: _columns,
+        filter: filterBase().like('%${senderIds[i]}%'),
+        sortOrder: [OrderBy(SmsColumn.DATE)],
+      );
+
+      _sms.addAll(_messages);
+    }
 
     final _smsModel = _sms.map((e) => e.toSmsModel()).toList();
 
     return Success(value: _smsModel);
-  }
-
-  SmsFilter createFilter(List<String> value, SmsFilterStatement statement) {
-    if (value.isEmpty) throw Exception('value cannot be empty');
-
-    if (value.length == 1) return statement.like('%${value.first}%');
-
-    final _removedItem = value.removeLast();
-
-    return createFilter(
-      value,
-      statement.like('%$_removedItem%').or(SmsColumn.ADDRESS),
-    );
   }
 
   @override

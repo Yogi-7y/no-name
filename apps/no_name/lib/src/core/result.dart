@@ -25,8 +25,8 @@ sealed class Result<S> {
   }) {
     final result = this;
 
-    if (result is Success<S>) success(result.value as S);
-    if (result is Failure<S>) failure(result.message);
+    if (result is Success<S>) return success(result.value as S);
+    if (result is Failure<S>) return failure(result.message);
 
     throw Exception('Invalid Result type ${result.runtimeType}');
   }
@@ -53,7 +53,14 @@ class Success<S> extends Result<S> {
 
 @immutable
 class Failure<S> extends Result<S> {
-  const Failure({required this.message});
+  const Failure({
+    required this.message,
+    this.stackTrace,
+    this.exception,
+  });
 
   final String message;
+
+  final StackTrace? stackTrace;
+  final Object? exception;
 }
